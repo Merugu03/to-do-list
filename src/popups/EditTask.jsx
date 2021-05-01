@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-const EditTask = ({ modal, toggle, updateTask, save }) => {
+const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const handleChange = (e) => {
@@ -12,7 +12,17 @@ const EditTask = ({ modal, toggle, updateTask, save }) => {
       setDescription(value);
     }
   };
-
+  useEffect(() => {
+    setTaskName(taskObj.Name);
+    setDescription(taskObj.Description);
+  }, []);
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    let tempObj = {};
+    tempObj["Name"] = taskName;
+    tempObj["Description"] = description;
+    updateTask(tempObj);
+  };
   /*const handleSave = () => {
     let taskObj = {};
     taskObj["Name"] = taskName;
@@ -36,7 +46,7 @@ const EditTask = ({ modal, toggle, updateTask, save }) => {
               />
             </div>
             <div className="form-group">
-              <label>Description</label>
+              <label>Task description</label>
               <textarea
                 rows="5"
                 className="form-control"
@@ -48,7 +58,9 @@ const EditTask = ({ modal, toggle, updateTask, save }) => {
           </form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary">Update</Button>{" "}
+          <Button color="primary" onClick={handleUpdate}>
+            Update
+          </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancel
           </Button>

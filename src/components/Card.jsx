@@ -1,6 +1,6 @@
 import React, { useState } from "react"; //imr
 import EditTask from "../popups/EditTask";
-const Card = ({ taskObj, index, deleteTask }) => {
+const Card = ({ taskObj, index, deleteTask, updateTaskList }) => {
   //sfc
   console.log(taskObj);
   const [modal, setModal] = useState(false);
@@ -33,6 +33,9 @@ const Card = ({ taskObj, index, deleteTask }) => {
 
   const handleDelete = () => {
     deleteTask(index);
+  };
+  const updateTask = (obj) => {
+    updateTaskList(obj, index);
   };
   return (
     <div>
@@ -73,7 +76,12 @@ const Card = ({ taskObj, index, deleteTask }) => {
           </div>
         </div>
       </div>
-      <EditTask modal={modal} toggle={toggle} />
+      <EditTask
+        modal={modal}
+        toggle={toggle}
+        taskObj={taskObj}
+        updateTask={updateTask}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 const CreateTask = ({ modal, toggle, save }) => {
   const [taskName, setTaskName] = useState("");
